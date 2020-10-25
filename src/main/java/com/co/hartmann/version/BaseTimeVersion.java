@@ -9,10 +9,6 @@ public abstract class BaseTimeVersion extends BaseVersion {
     public static final long    GREGORIAN_MILLISECONDS = GREGORIAN.getEpochSecond() * MILLIS_PER_SECONDS;
     public static final long    TICKS_PER_MILLISECONDS = 10_000L; // 1 tick = 100ns
 
-    protected BaseTimeVersion() {
-        super();
-    }
-
     protected BaseTimeVersion(int version) {
         super(version);
     }

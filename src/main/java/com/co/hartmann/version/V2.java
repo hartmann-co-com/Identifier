@@ -5,8 +5,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public final class V2 extends BaseTimeVersion {
 
-    private static AtomicInteger counter = new AtomicInteger();
-    private static long          versionBits;
+    private static final AtomicInteger counter = new AtomicInteger();
+    private static       long          versionBits;
+
     private V2() {
         super(2);
         versionBits = 2 << 12;
@@ -34,10 +35,19 @@ public final class V2 extends BaseTimeVersion {
         GROUP((byte) 1),
         ORG((byte) 2);
 
-        private byte value;
+        private final byte value;
 
         Domain(byte value) {
             this.value = value;
+        }
+
+        public static Domain of(final byte value) {
+            for (Domain entry : Domain.values()) {
+                if (entry.value == value) {
+                    return entry;
+                }
+            }
+            return null;
         }
     }
 }

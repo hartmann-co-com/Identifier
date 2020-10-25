@@ -1,23 +1,13 @@
 package com.co.hartmann.version;
 
-import java.security.SecureRandom;
-import java.util.Random;
+import com.co.hartmann.random.NumGenHT;
 
 public abstract class BaseVersion {
-
-    protected static final Random SHARED_RANDOM = new SecureRandom();
-
-    protected final int version;
-
-    protected BaseVersion() {
-        this.version = 0;
-    }
 
     protected BaseVersion(int version) {
         if (version < 0x0000_0000 || version > 0x0000_000fL) {
             throw new IllegalArgumentException("Invalid UUID version");
         }
-        this.version = version;
     }
 
     protected static long parseNodeId(final long nodeId) {
@@ -25,11 +15,11 @@ public abstract class BaseVersion {
     }
 
     protected static long randomLong() {
-        return SHARED_RANDOM.nextLong();
+        return NumGenHT.nextLong();
     }
 
     protected static int randomInt() {
-        return SHARED_RANDOM.nextInt();
+        return NumGenHT.nextInt();
     }
 
     protected static long applyVersionBits(final long msb, final long versionBits) {
@@ -39,4 +29,6 @@ public abstract class BaseVersion {
     protected static long applyVariantBits(final long lsb) {
         return (lsb & 0x3fff_ffff_ffff_ffffL) | 0x8000_0000_0000_0000L;
     }
+
+
 }
